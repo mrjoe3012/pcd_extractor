@@ -21,12 +21,15 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 find_package(PCL 1.10 REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 add_executable(pcd_extractor src/pcd_extractor.cpp)
 target_include_directories(pcd_extractor PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include> ${PCL_INCLUDE_DIRS})
 target_link_libraries(pcd_extractor ${PCL_LIBRARIES})
+ament_target_dependencies(pcd_extractor sensor_msgs rclcpp)
 
 install(TARGETS pcd_extractor
   DESTINATION lib/${PROJECT_NAME})
