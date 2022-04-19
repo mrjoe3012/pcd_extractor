@@ -20,11 +20,13 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(PCL 1.10 REQUIRED)
 
 add_executable(pcd_extractor src/pcd_extractor.cpp)
 target_include_directories(pcd_extractor PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include> ${PCL_INCLUDE_DIRS})
+target_link_libraries(pcd_extractor ${PCL_LIBRARIES})
 
 install(TARGETS pcd_extractor
   DESTINATION lib/${PROJECT_NAME})
